@@ -1,55 +1,146 @@
 
 # Docker Data Engineering Lab
 
-A hands-on learning environment for exploring Docker, Docker Compose, containers, databases, and modern Data Engineering tools.
+A hands-on learning environment for exploring Docker, containerization, and modern Data Engineering technologies.
 
-This repository contains practical exercises, configurations, and examples designed to build a strong understanding of containerization and Data Engineering technologies.
+This repository brings together practical examples, configurations, and experiments covering the Data Engineering ecosystem, from data ingestion and CDC to orchestration, transformation, data quality, and cloud data platforms.
 
 ## 🎯 Objectives
 
-- Learn Docker fundamentals and container management.
-- Understand Docker images, containers, networks, and volumes.
-- Build and manage multi-container environments using Docker Compose.
-- Deploy and interact with databases inside Docker containers.
-- Practice connecting different Data Engineering tools.
-- Build reproducible development environments.
+- Master Docker and Docker Compose.
+- Build containerized Data Engineering environments.
+- Understand database management and data persistence.
+- Practice batch and streaming data ingestion.
+- Explore Change Data Capture (CDC).
+- Build data pipelines and orchestration workflows.
+- Implement data transformations using dbt.
+- Apply data quality and testing practices.
+- Explore cloud data platforms and modern data architectures.
+- Understand how different Data Engineering tools integrate.
 
-## 🛠️ Technologies
+## 🛠️ Technologies & Tools
+
+### 1. Containerization & Infrastructure
 
 | Technology | Purpose |
 |---|---|
 | Docker | Containerization |
 | Docker Compose | Multi-container applications |
+| Docker Hub | Container image registry |
+| Nginx | Web server and reverse proxy |
+| Linux | Operating system and command-line tools |
+
+### 2. Databases & Data Storage
+
+| Technology | Purpose |
+|---|---|
 | MySQL | Relational database |
 | PostgreSQL | Relational database |
-| Nginx | Web server and reverse proxy |
-| Apache Kafka | Event streaming |
+| MongoDB | NoSQL database |
+| Redis | In-memory data store |
+| Snowflake | Cloud data warehouse |
+
+### 3. Data Ingestion & Integration
+
+| Technology | Purpose |
+|---|---|
 | Airbyte | Data integration and ingestion |
+| Apache Kafka | Event streaming |
+| Debezium | Change Data Capture (CDC) |
+| Kafka Connect | Data integration framework |
+| Python | Data ingestion and automation |
+
+### 4. Data Transformation
+
+| Technology | Purpose |
+|---|---|
+| dbt Core | Data transformation |
+| dbt Cloud | Managed dbt platform |
+| SQL | Data querying and transformation |
+| dbt-codegen | Automatic generation of dbt code |
+| Jinja | SQL templating |
+
+### 5. Data Quality & Testing
+
+| Technology | Purpose |
+|---|---|
+| dbt tests | Data transformation testing |
+| dbt-expectations | Data quality testing with expectation-based tests |
+| Great Expectations | Data quality validation |
+| Soda | Data quality and monitoring |
+| pytest | Python testing |
+
+### 6. Workflow Orchestration
+
+| Technology | Purpose |
+|---|---|
+| Apache Airflow | Workflow orchestration |
+| DAGs | Workflow definition and scheduling |
+| Airflow Operators | Workflow task execution |
+| Airflow Sensors | Dependency and condition monitoring |
+
+### 7. Data Processing
+
+| Technology | Purpose |
+|---|---|
 | Apache Spark | Distributed data processing |
-| Python | Data Engineering and automation |
+| PySpark | Python API for Spark |
+| Apache Flink | Stream processing |
+| Pandas | Data manipulation |
+
+### 8. Cloud & Data Platforms
+
+| Technology | Purpose |
+|---|---|
+| Snowflake | Cloud data warehouse |
+| AWS | Cloud infrastructure and data services |
+| Azure | Cloud infrastructure and data services |
+| Google Cloud | Cloud infrastructure and data services |
 
 ## 📁 Repository Structure
 
 ```text
 docker-data-engineering-lab/
-├── nginx/
-│   ├── docker-compose.yml
-│   └── README.md
-├── mysql/
-│   ├── docker-compose.yml
-│   └── README.md
-├── postgresql/
-│   ├── docker-compose.yml
-│   └── README.md
-├── kafka/
-│   ├── docker-compose.yml
-│   └── README.md
-├── airbyte/
-│   ├── docker-compose.yml
-│   └── README.md
-├── spark/
-│   ├── docker-compose.yml
-│   └── README.md
+│
+├── docker-basics/
+│   ├── nginx/
+│   ├── containers/
+│   ├── volumes/
+│   └── networking/
+│
+├── databases/
+│   ├── mysql/
+│   ├── postgresql/
+│   ├── mongodb/
+│   └── redis/
+│
+├── ingestion/
+│   ├── airbyte/
+│   ├── kafka/
+│   ├── kafka-connect/
+│   └── debezium-cdc/
+│
+├── transformation/
+│   ├── dbt-core/
+│   ├── dbt-codegen/
+│   └── sql/
+│
+├── data-quality/
+│   ├── dbt-tests/
+│   ├── dbt-expectations/
+│   └── great-expectations/
+│
+├── orchestration/
+│   └── airflow/
+│
+├── processing/
+│   ├── spark/
+│   ├── pyspark/
+│   └── flink/
+│
+├── cloud-platforms/
+│   └── snowflake/
+│
 └── README.md
 ```
 
@@ -60,7 +151,9 @@ docker-data-engineering-lab/
 - Docker Engine
 - Docker Compose v2
 - Git
-- A terminal or development environment (GitHub Codespaces is also supported)
+- Python
+- Basic SQL knowledge
+- GitHub Codespaces or a local development environment
 
 ### Clone the Repository
 
@@ -71,8 +164,6 @@ cd docker-data-engineering-lab
 ```
 
 ### Run Your First Container
-
-Start an Nginx container:
 
 ```bash
 docker run -d \
@@ -87,53 +178,88 @@ Check running containers:
 docker ps
 ```
 
-Access Nginx through your browser:
+Access Nginx:
 
 ```text
 http://localhost:8080
 ```
 
-**Note:** In GitHub Codespaces, use the forwarded port URL instead of your local browser's localhost address.
+**Note:** When using GitHub Codespaces, access services through the forwarded port URL.
 
 ## 📚 Learning Roadmap
 
-- [x] Run your first Docker container.
+### Docker Fundamentals
+- [x] Run Docker containers.
 - [x] Pull images from Docker Hub.
 - [x] Understand port mapping.
 - [x] Access containers through GitHub Codespaces.
-- [ ] Explore container filesystems using `docker exec`.
+- [ ] Explore container filesystems using docker exec.
 - [ ] Create and manage Docker volumes.
 - [ ] Understand Docker networking.
-- [ ] Build applications using Docker Compose.
-- [ ] Deploy MySQL and PostgreSQL.
+- [ ] Build multi-container environments with Docker Compose.
+
+### Databases
+- [ ] Deploy MySQL.
+- [ ] Deploy PostgreSQL.
+- [ ] Configure persistent storage.
 - [ ] Connect Python applications to databases.
-- [ ] Deploy Kafka and practice event streaming.
-- [ ] Explore Airbyte for data ingestion.
-- [ ] Experiment with Apache Spark.
+
+### Data Ingestion & CDC
+- [ ] Deploy Airbyte.
+- [ ] Explore Kafka producers and consumers.
+- [ ] Configure Kafka Connect.
+- [ ] Implement CDC using Debezium.
+- [ ] Capture database changes and stream events.
+
+### Data Transformation & Quality
+- [ ] Set up dbt Core.
+- [ ] Connect dbt to Snowflake.
+- [ ] Build dbt models.
+- [ ] Generate dbt models and sources using dbt-codegen.
+- [ ] Implement data quality tests using dbt-expectations.
+- [ ] Explore Great Expectations.
+
+### Workflow Orchestration
+- [ ] Deploy Apache Airflow.
+- [ ] Create and schedule DAGs.
+- [ ] Integrate Airflow with dbt.
+- [ ] Orchestrate end-to-end data pipelines.
+
+### Data Processing & Cloud
+- [ ] Deploy Apache Spark.
+- [ ] Practice PySpark transformations.
+- [ ] Explore stream processing.
+- [ ] Connect to Snowflake.
+- [ ] Build an end-to-end Data Engineering pipeline.
 
 ## 🧪 Learning Approach
 
-This is a practical, hands-on learning repository.
+This repository follows a practical, hands-on approach.
 
 Each technology will have its own directory containing:
 
-- Docker configuration files.
-- Docker Compose configurations.
-- Practical examples.
-- Step-by-step instructions.
-- Exercises and notes.
+- Dockerfiles and Docker Compose configurations.
+- Environment configuration examples.
+- Step-by-step setup instructions.
+- SQL and Python scripts.
+- Practical exercises.
+- Integration examples.
+- Troubleshooting notes.
 
-The goal is not just to run containers, but to understand how components communicate and work together in real-world Data Engineering environments.
+The focus is on understanding how individual technologies work and, more importantly, how they integrate into a complete Data Engineering ecosystem.
 
 ## 🔐 Notes
 
 - Configurations are primarily intended for learning and experimentation.
 - Credentials used in examples are for local practice only.
-- Never commit real passwords, API keys, or sensitive credentials.
-- Pin image versions where practical to ensure reproducible environments.
+- Never commit real passwords, API keys, or access tokens.
+- Use environment variables and `.env` files for local configuration.
+- Pin image versions where practical.
+- Some cloud services, including Snowflake, require separate accounts and may have usage costs.
 
 
-A personal hands-on lab for learning Docker and building practical Data Engineering skills.
+
+A personal hands-on lab for learning, experimenting, and building practical Data Engineering skills.
 
 ---
 
