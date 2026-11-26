@@ -35,8 +35,10 @@ SHOW GRANTS FOR 'airbyte_user'@'%';
 #### if using cloud version
 
 -- Create a dedicated account for Airbyte.
-``` CREATE USER 'airbyte_cdc'@'%'
-IDENTIFIED BY 'ChangeThis_ToAStrongPassword123!'; ```
+```
+CREATE USER 'airbyte_cdc'@'%'
+IDENTIFIED BY 'ChangeThis_ToAStrongPassword123!';
+```
 
 -- Grant read access to the source database.
 ```GRANT SELECT ON company_db.* TO 'airbyte_cdc'@'%';```
