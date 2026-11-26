@@ -76,3 +76,7 @@ SHOW VARIABLES WHERE Variable_name IN (
     'binlog_expire_logs_seconds'
 );
 ```
+#### Create an Airbyte Cloud account
+1. Create an account.
+2. Create a workspace.
+3. Open the Airbyte dashboard.
