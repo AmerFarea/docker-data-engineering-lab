@@ -61,4 +61,18 @@ FLUSH PRIVILEGES;
 ```
 SHOW GRANTS FOR 'airbyte_cdc'@'%';
 ```
+
+#########################
+Verify CDC configuration in the docker side
+```
+docker exec -it mysql-db mysql -uroot -p
+```
+```
+SHOW VARIABLES WHERE Variable_name IN (
+    'server_id',
+    'log_bin',
+    'binlog_format',
+    'binlog_row_image',
+    'binlog_expire_logs_seconds'
+);
 ```
