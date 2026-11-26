@@ -1,0 +1,14 @@
+# Never commit environment variables or passwords.
+.env
+
+# Ignore local backups.
+*.sql.gz
+
+# Ignore database files.
+*.ibd
+*.ibdata
+*.log
+
+# Ignore operating system files.
+.DS_Store
+Thumbs.db
