@@ -1,0 +1,125 @@
+# Docker Compose configuration for the MySQL source database.
+# This database will be accessed by:
+# 1. MySQL Workbench running on the host machine.
+# 2. Airbyte running in another Docker container/project.
+# 3. Other applications connected to the Docker network.
+
+services:
+
+  # ==========================================================
+  # MYSQL SOURCE DATABASE
+  # ==========================================================
+
+  mysql:
+
+    # Official MySQL 8.0 image.
+    image: mysql:8.0
+
+    # Fixed container name makes it easier to identify and manage.
+    container_name: mysql-db
+
+    # Container hostname used by other containers on the network.
+    hostname: mysql-db
+
+    # Automatically restart the container unless explicitly stopped.
+    restart: unless-stopped
+
+    # Load database credentials from the .env file.
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TZ}
+
+    # Expose MySQL to the host machine.
+    # MySQL Workbench can connect through localhost:3306.
+    ports:
+      - "3306:3306"
+
+    volumes:
+
+      # Persistent storage for MySQL database files.
+      # Data survives container removal and recreation.
+      - mysql_data:/var/lib/mysql
+
+      # Execute initialization scripts automatically
+      # when MySQL initializes a completely empty data directory.
+      # Read-only mounting prevents accidental modifications.
+      - ./mysql/init:/docker-entrypoint-initdb.d:ro
+
+    command:
+
+      # Unique server identifier required for MySQL replication.
+      - --server-id=1
+
+      # Enable binary logging for CDC (Change Data Capture).
+      - --log-bin=mysql-bin
+
+      # Record individual row changes instead of SQL statements.
+      - --binlog-format=ROW
+
+      # Include complete before/after row images in binary logs.
+      - --binlog-row-image=FULL
+
+      # Keep binary logs for seven days.
+      - --binlog-expire-logs-seconds=604800
+
+    networks:
+
+      # Connect MySQL to the shared network used by Airbyte.
+      - data-network
+
+    healthcheck:
+
+      # Check whether MySQL is accepting connections.
+      test:
+        - CMD-SHELL
+        - mysqladmin ping -h 127.0.0.1 -uroot -p"$${MYSQL_ROOT_PASSWORD}" --silent
+
+      # Run the health check every 10 seconds.
+      interval: 10s
+
+      # Maximum time allowed for each health check.
+      timeout: 5s
+
+      # Number of consecutive failures before marking unhealthy.
+      retries: 10
+
+      # Give MySQL time to initialize before checking health.
+      start_period: 40s
+
+
+# ==========================================================
+# PERSISTENT VOLUMES
+# ==========================================================
+
+volumes:
+
+  # Named Docker volume storing MySQL database files.
+  # Docker manages the physical storage location.
+  mysql_data:
+
+    # Explicit name makes it easier to identify the volume.
+    name: mysql_data
+
+    # Use Docker's default local storage driver.
+    driver: local
+
+
+# ==========================================================
+# DOCKER NETWORKS
+# ==========================================================
+
+networks:
+
+  # Shared network allowing communication between MySQL
+  # and Airbyte containers.
+  data-network:
+
+    # Explicit network name avoids Compose project prefixes.
+    name: data-network
+
+    # Bridge networking allows containers on this Docker host
+    # to communicate with each other.
+    driver: bridge
