@@ -41,16 +41,24 @@ IDENTIFIED BY 'ChangeThis_ToAStrongPassword123!';
 ```
 
 -- Grant read access to the source database.
-```GRANT SELECT ON company_db.* TO 'airbyte_cdc'@'%';```
+```
+GRANT SELECT ON company_db.* TO 'airbyte_cdc'@'%';
+```
 
 -- Grant permissions required for CDC replication.
-```GRANT RELOAD, SHOW DATABASES,
+```
+GRANT RELOAD, SHOW DATABASES,
 REPLICATION SLAVE, REPLICATION CLIENT
-ON *.* TO 'airbyte_cdc'@'%';```
+ON *.* TO 'airbyte_cdc'@'%';
+```
 
 -- Apply the permissions.
-```FLUSH PRIVILEGES;```
+```
+FLUSH PRIVILEGES;
+```
 
 -- Verify the account permissions.
-```SHOW GRANTS FOR 'airbyte_cdc'@'%';```
+```
+SHOW GRANTS FOR 'airbyte_cdc'@'%';
+```
 ```
