@@ -14,7 +14,7 @@ TO 'airbyte_user'@'%';
 ```
 -- Grant permissions required for MySQL CDC.
 ```
--- GRANT RELOAD, SHOW DATABASES, REPLICATION SLAVE,
+GRANT RELOAD, SHOW DATABASES, REPLICATION SLAVE,
 REPLICATION CLIENT, LOCK TABLES
 ON *.*
 TO 'airbyte_user'@'%';
