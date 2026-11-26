@@ -26,7 +26,7 @@ FLUSH PRIVILEGES;
 
 -- Verify granted privileges.
 ```
-SHOW GRANTS FOR 'airbyte_user'@'%';
+SHOW GRANTS FOR 'airbyte_user'@'%'; ```
 
 
 
