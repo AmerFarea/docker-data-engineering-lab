@@ -7,18 +7,24 @@ Open Adminer:
 
 sql
 -- Grant Airbyte permission to read database metadata.
+```
 GRANT SELECT, SHOW VIEW
 ON company_db.*
 TO 'airbyte_user'@'%';
-
+```
 -- Grant permissions required for MySQL CDC.
-GRANT RELOAD, SHOW DATABASES, REPLICATION SLAVE,
+```
+-- GRANT RELOAD, SHOW DATABASES, REPLICATION SLAVE,
 REPLICATION CLIENT, LOCK TABLES
 ON *.*
 TO 'airbyte_user'@'%';
-
+```
 -- Apply privilege changes.
+```
 FLUSH PRIVILEGES;
+```
 
 -- Verify granted privileges.
+```
 SHOW GRANTS FOR 'airbyte_user'@'%';
+```
