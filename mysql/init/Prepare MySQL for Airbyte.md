@@ -62,7 +62,7 @@ FLUSH PRIVILEGES;
 SHOW GRANTS FOR 'airbyte_cdc'@'%';
 ```
 
-#########################
+####
 Verify CDC configuration in the docker side
 ```
 docker exec -it mysql-db mysql -uroot -p
